@@ -1,5 +1,6 @@
 import {notification} from "antd";
 import {ResponseError} from "umi-request";
+// @ts-ignore
 import URLParse from "url-parse";
 
 export type errorCodeHandleFun = (error: ResponseError) => void;
