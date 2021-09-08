@@ -1,4 +1,5 @@
-import constructor, {errorHandlerConfig, errorCodeHandleFun} from "./errorHandler";
+import constructor from "./errorHandler";
+import type {errorHandlerConfig, errorCodeHandleFun} from "./errorHandler";
 
-export {errorHandlerConfig, errorCodeHandleFun};
+export type {errorHandlerConfig, errorCodeHandleFun};
 export default constructor;
