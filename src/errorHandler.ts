@@ -5,6 +5,7 @@ export type errorCodeHandleFun = (error: ResponseError) => void;
 
 export type errorHandlerConfig = {
     loginURL?: string;
+    tokenKey?: string;
     codeHandleFun?: { [key: number]: errorCodeHandleFun };
 }
 
@@ -27,8 +28,8 @@ const codeMessage: { [key: number]: string } = {
     504: '网关超时。',
 };
 
-const handleFor401 = (loginUrl: string) => {
-    localStorage.removeItem("x-token");
+const handleFor401 = (loginUrl: string, tokenKey: string) => {
+    localStorage.removeItem(tokenKey);
     notification.error({
         duration: 3,
         message: `拒绝访问`,
@@ -59,7 +60,7 @@ const handleOther = (error: ResponseError) => {
 }
 
 const constructor = (config: errorHandlerConfig): (error: ResponseError) => void => {
-    const {loginURL, codeHandleFun} = config;
+    const {loginURL, tokenKey = "x-token", codeHandleFun} = config;
 
     let errorHandler: (error: ResponseError) => void = (error) => {
         const {response} = error;
@@ -67,7 +68,7 @@ const constructor = (config: errorHandlerConfig): (error: ResponseError) => void
         if (response && response.status) {
             switch (response.status) {
                 case 401:
-                    codeHandleFun?.[401] ? codeHandleFun?.[401](error) : handleFor401(loginURL);
+                    codeHandleFun?.[401] ? codeHandleFun?.[401](error) : handleFor401(loginURL, tokenKey);
                     break;
                 case 403:
                     codeHandleFun?.[403] ? codeHandleFun?.[403](error) : handleFor403();
