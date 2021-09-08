@@ -30,8 +30,8 @@ const codeMessage: { [key: number]: string } = {
 const handleFor401 = (loginUrl: string) => {
     notification.warn({
         duration: 3,
-        message: `未授权`,
-        description: "用户没有权限（令牌、用户名、密码错误）",
+        message: `拒绝访问`,
+        description: "用户没有权限或登录态已过期，系统将在3秒后自动跳转至登录页...",
         onClose: () => {
             location.href = loginUrl;
         },
@@ -51,6 +51,7 @@ const handleOther = (error: ResponseError) => {
     const errorText = codeMessage[response.status] || response.statusText;
     const {status, url} = response;
     notification.error({
+        duration: 5,
         message: `请求错误 ${status}: ${url}`,
         description: error.data?.message ? error.data.message : errorText,
     });
