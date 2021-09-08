@@ -1,6 +1,6 @@
 {
   "name": "request-error-handler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/index.ts",
   "repository": "https://github.com/umi-codes/request-error-handler",
   "author": "robin.peng",
