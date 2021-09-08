@@ -28,6 +28,7 @@ const codeMessage: { [key: number]: string } = {
 };
 
 const handleFor401 = (loginUrl: string) => {
+    localStorage.removeItem("x-token");
     notification.error({
         duration: 3,
         message: `拒绝访问`,
