@@ -69,7 +69,7 @@ const handleOther = (error: ResponseError) => {
 }
 
 const constructor = (config: errorHandlerConfig): (error: ResponseError) => void => {
-    const {loginURL, tokenKey = "x-token", codeHandleFun} = config;
+    const {loginURL = "http://portal.data.xunlei.cn/login", tokenKey = "x-token", codeHandleFun} = config;
 
     let errorHandler: (error: ResponseError) => void = (error) => {
         const {response} = error;
