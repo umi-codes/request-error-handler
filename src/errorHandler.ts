@@ -28,7 +28,7 @@ const codeMessage: { [key: number]: string } = {
 };
 
 const handleFor401 = (loginUrl: string) => {
-    notification.warn({
+    notification.error({
         duration: 3,
         message: `拒绝访问`,
         description: "用户没有权限或登录态已过期，系统将在3秒后自动跳转至登录页...",
@@ -60,7 +60,6 @@ const handleOther = (error: ResponseError) => {
 const constructor = (config: errorHandlerConfig): (error: ResponseError) => void => {
     const {loginURL, codeHandleFun} = config;
 
-
     let errorHandler: (error: ResponseError) => void = (error) => {
         const {response} = error;
 
@@ -85,7 +84,6 @@ const constructor = (config: errorHandlerConfig): (error: ResponseError) => void
         }
         throw error;
     }
-
     return errorHandler;
 }
 
