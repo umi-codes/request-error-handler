@@ -1,5 +1,6 @@
 import {notification} from "antd";
 import {ResponseError} from "umi-request";
+import URLParse from "url-parse";
 
 export type errorCodeHandleFun = (error: ResponseError) => void;
 
@@ -29,13 +30,20 @@ const codeMessage: { [key: number]: string } = {
 };
 
 const handleFor401 = (loginUrl: string, tokenKey: string) => {
+
+    let parsedLoginURL = URLParse(loginUrl);
+    let currentURL = URLParse(location.href);
+    if (parsedLoginURL.pathname !== currentURL.pathname) {
+        parsedLoginURL.set("query", {...parsedLoginURL.query, redirect: encodeURIComponent(currentURL.toString())});
+    }
+
     localStorage.removeItem(tokenKey);
     notification.error({
         duration: 3,
         message: `拒绝访问`,
         description: "用户没有权限或登录态已过期，系统将在3秒后自动跳转至登录页...",
         onClose: () => {
-            location.href = loginUrl;
+            location.href = parsedLoginURL.toString();
         },
     });
 }
