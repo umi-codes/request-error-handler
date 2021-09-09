@@ -33,7 +33,7 @@ const codeMessage: { [key: number]: string } = {
 const handleFor401 = (loginUrl: string, tokenKey: string) => {
 
     let parsedLoginURL = URLParse(loginUrl);
-    let currentURL = URLParse(location.href);
+    let currentURL = URLParse(location.href, true);
     if (parsedLoginURL.pathname !== currentURL.pathname) {
         parsedLoginURL.set("query", {...parsedLoginURL.query, redirect: encodeURIComponent(currentURL.toString())});
     }
